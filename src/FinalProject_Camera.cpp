@@ -319,6 +319,8 @@ void mainLoop(std::string const& detectorType, std::string const& descriptorType
 int main(int argc, const char *argv[])
 {
     ofstream performanceDump("ttcCamera.csv", std::ios::out);
+    // You can comment out from this part on to test only one pair of detector/descriptor
+    // e.g mainLoop(KPT_DETECTORS[AKAZE], KPT_DESCRIPTORS[DES_FREAK], performanceDump);
     for (auto const &detector : KPT_DETECTORS)
     {
         // SIFT requires a lot of memory
@@ -340,6 +342,7 @@ int main(int argc, const char *argv[])
     mainLoop(KPT_DETECTORS[SIFT], KPT_DESCRIPTORS[DES_SIFT], performanceDump);
     mainLoop(KPT_DETECTORS[SIFT], KPT_DESCRIPTORS[DES_BRIEF], performanceDump);
     mainLoop(KPT_DETECTORS[SIFT], KPT_DESCRIPTORS[DES_FREAK], performanceDump);
+    // You can comment out up to here
     performanceDump.close();
     return 0;
 }
