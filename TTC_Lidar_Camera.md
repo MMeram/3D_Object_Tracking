@@ -28,7 +28,7 @@ A short overview can be found on these pictures regarding the TTC calculation.
 
 
 
-There is no distance calculation but the ratio of the height on the image plane or the descriptors. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratio $$h_1/h_0$$ with the mean or median of all distance ratios $$d_k/d_k'$$
+There is no distance calculation but the ratio of the height on the image plane or the descriptors. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratio $h_1/h_0$ with the mean or median of all distance ratios $d_k/d_k'$
 
 
 
