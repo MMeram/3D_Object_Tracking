@@ -85,7 +85,7 @@ I calculated the TTC first based on the constant velocity model with the minimum
 
 Among the detectors/descriptor pairs the best performance is achieved using the AKAZE/FREAK.
 
-![image-20210606171537350](/media/mmeram/backup/Self-Driving-Cars/Sensor-Fusion/Camera/SFND_3D_Object_Tracking/project/3D_Object_Tracking/image-20210606171537350.png)
+![image-20210606171537350](image-20210606171537350.png)
 
 It's known to yield the best result in high frame rate or high resolution images. Here an indirect supportive article can be found: http://tulipp.eu/wp-content/uploads/2019/03/2017_TUD_HEART_kalms.pdf
 
