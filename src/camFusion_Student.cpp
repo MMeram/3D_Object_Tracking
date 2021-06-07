@@ -165,36 +165,30 @@ void clusterKptMatchesWithROI(BoundingBox &boundingBox, std::vector<cv::KeyPoint
     // iterate through matches if the matched points in the ROI then assign it
     for (auto const &match : kptMatches)
     {
-        if (boundingBox.roi.contains(kptsPrev[match.queryIdx].pt) && boundingBox.roi.contains(kptsCurr[match.trainIdx].pt))
+        if (boundingBox.roi.contains(kptsCurr[match.trainIdx].pt))
         {
-            //boundingBox.keypoints.push_back(kptsCurr[match.trainIdx]);
-            boundingBox.kptMatches.push_back(match);
             // to calculate the mean and stddev
-            distance.push_back(match.distance);
-
+            distance.push_back(cv::norm(kptsCurr[match.trainIdx].pt - kptsPrev[match.queryIdx].pt));
         }
-       
     }
-    // Two ways of choosing the best matches between keypoints
-    // 1) partially sort the matches in ascending order and keep the best n matches
-    // 2) calculate the mean and std deviation w.r.t. distances and 
-    /*auto bestNElements = std::floor(boundingBox.kptMatches.size()/3.0);
-    //cout << "best elem: "<< bestNElements<< '\n';
-    std::nth_element(boundingBox.kptMatches.begin(), 
-                  boundingBox.kptMatches.begin()+bestNElements,boundingBox.kptMatches.end()); 
-    // remove the rest 
-    boundingBox.kptMatches.erase(boundingBox.kptMatches.begin()+bestNElements,boundingBox.kptMatches.end());
-    */
+
 
     // Calculate the mean and std deviation and limit the matching score between [0, mean+stdDev]
     cv::Scalar mean, stdDev;
     cv::meanStdDev(distance, mean, stdDev);
-    //cout << "BBox matches mean/stdDev "<< mean[0]<< ", " << stdDev[0] <<'\n'; 
-    boundingBox.kptMatches.erase(std::remove_if(boundingBox.kptMatches.begin(), boundingBox.kptMatches.end(),[&](cv::DMatch & kptMatch){
-                // remove-erase idiom, first move the unused entries to the beginning and then erase by the iterator position
-                return kptMatch.distance >= (mean[0] + stdDev[0]) ;
-            }), boundingBox.kptMatches.end());
-           
+    // set the threshold, not more than %30 deviation from the mean
+    auto threshold = mean[0] + (stdDev[0] > mean[0]*0.3 ? mean[0]*0.3 : stdDev[0]);
+    //cout << "thres1, thres2: "<< threshold << ", " << mean[0] + stdDev[0] << ", " << stdDev[0]<<'\n';
+    for (auto const &match : kptMatches)
+    {
+        if (boundingBox.roi.contains(kptsCurr[match.trainIdx].pt) && 
+            cv::norm(kptsCurr[match.trainIdx].pt - kptsPrev[match.queryIdx].pt) < threshold)
+        {
+            // only those whose distances not far than threshold
+            boundingBox.keypoints.push_back(kptsCurr[match.trainIdx]);
+            boundingBox.kptMatches.push_back(match);
+        }
+    }      
 }
 
 

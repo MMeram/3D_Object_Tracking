@@ -312,7 +312,7 @@ void mainLoop(std::string const& detectorType, std::string const& descriptorType
         }
 
     } // eof loop over all images
-    outputFile << '\n';
+    outputFile << "\n\n";
     outputFile.flush();
 }
 
