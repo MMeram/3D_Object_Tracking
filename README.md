@@ -111,6 +111,6 @@ It is seen the TTC results first based on the constant velocity model with the m
 
 All possible combination of detectors and descriptors has been collected in the *ttcCameraPerformance.ods* file. It turned out that the AKAZE/FREAK combination performs the best among all others
 
-![](/media/mmeram/backup/Self-Driving-Cars/Sensor-Fusion/Camera/SFND_3D_Object_Tracking/project/3D_Object_Tracking/TTCCameraBestDetDes.png)
+![](TTCCameraBestDetDes.png)
 
 It's apparently known to yield the best result in high frame rate or high resolution images. Here an indirect supportive article can be found at: http://tulipp.eu/wp-content/uploads/2019/03/2017_TUD_HEART_kalms.pdf
